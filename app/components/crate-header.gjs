@@ -110,6 +110,28 @@ export default class CrateHeader extends Component {
         Security
       </nav.Tab>
 
+      <nav.Tab
+        @link={{if
+          @versionNum
+          (link_ 'crate.version-sherlock' @crate @versionNum)
+          (link_ 'crate.sherlock' @crate)
+        }}
+        data-test-sherlock-tab
+      >
+        cargo-sherlock
+      </nav.Tab>
+
+      <nav.Tab
+        @link={{if
+          @versionNum
+          (link_ 'crate.version-cargo-scan' @crate @versionNum)
+          (link_ 'crate.cargo-scan' @crate)
+        }}
+        data-test-cargo-scan-tab
+      >
+        cargo-scan
+      </nav.Tab>
+
       {{#if this.isOwner}}
         <nav.Tab @link={{link_ 'crate.settings' @crate}} data-test-settings-tab>
           Settings

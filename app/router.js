@@ -19,6 +19,10 @@ Router.map(function () {
 
     this.route('reverse-dependencies', { path: 'reverse_dependencies' });
     this.route('security');
+    this.route('sherlock');
+    this.route('version-sherlock', { path: '/:version_num/sherlock' });
+    this.route('cargo-scan');
+    this.route('version-cargo-scan', { path: '/:version_num/cargo-scan' });
 
     this.route('owners');
     this.route('settings', function () {
