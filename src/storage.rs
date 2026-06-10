@@ -403,12 +403,18 @@ impl Storage {
 }
 
 fn build_s3(config: &S3Config, client_options: ClientOptions) -> AmazonS3 {
-    AmazonS3Builder::new()
+    let mut builder = AmazonS3Builder::new()
         .with_region(config.region.as_deref().unwrap_or(DEFAULT_REGION))
         .with_bucket_name(&config.bucket)
         .with_access_key_id(&config.access_key)
         .with_secret_access_key(config.secret_key.expose_secret())
-        .with_client_options(client_options)
+        .with_client_options(client_options);
+
+    if let Ok(endpoint) = std::env::var("S3_ENDPOINT") {
+        builder = builder.with_endpoint(endpoint);
+    }
+
+    builder
         .build()
         .context("Failed to initialize S3 code")
         .unwrap()
